@@ -342,4 +342,4 @@ gem 'jb', git: 'https://github.com/williamhatch/jb'
 ```ruby
 rails g controller control_name action1 action2 -e jb
 #will generate action1.json.jb and action2.json.jb
-```ruby
+```
