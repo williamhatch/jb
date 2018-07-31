@@ -340,6 +340,7 @@ gem 'jb', git: 'https://github.com/williamhatch/jb'
 
 ### usage:
 ```ruby
+bunlde update jb  #install to bunder (GEM_PATH or BUNDLER_PATH)
 rails g controller control_name action1 action2 -e jb
 #will generate action1.json.jb and action2.json.jb
 ```
