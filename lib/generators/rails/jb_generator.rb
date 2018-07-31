@@ -23,7 +23,6 @@ module Rails
         #add jb files for new actions
         attributes_names.each do |k|
           next if k == :id
-          puts k
           template 'temp.json.jb', File.join('app/views', controller_file_path, k+'.json.jb')
         end
       end
