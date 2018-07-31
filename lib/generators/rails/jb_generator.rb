@@ -20,11 +20,15 @@ module Rails
         template 'index.json.jb', File.join('app/views', controller_file_path, 'index.json.jb')
         template 'show.json.jb', File.join('app/views', controller_file_path, 'show.json.jb')
         
+        include_type = false #suppose the model will include :?
+        ARGV.each {|x| include_type ||= x.include?(':')}
+        return if include_type
         #add jb files for new actions
         attributes_names.each do |k|
           next if k == :id
           template 'temp.json.jb', File.join('app/views', controller_file_path, k+'.json.jb')
         end
+        
       end
 
 
