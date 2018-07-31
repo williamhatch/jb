@@ -333,3 +333,13 @@ Pull requests are welcome on GitHub at https://github.com/amatsuda/jb.
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+
+###
+gem 'jb', git: 'https://github.com/williamhatch/jb'
+
+### usage:
+```ruby
+rails g controller control_name action1 action2 -e jb
+#will generate action1.json.jb and action2.json.jb
+```ruby
