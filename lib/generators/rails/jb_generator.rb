@@ -20,12 +20,11 @@ module Rails
         template 'index.json.jb', File.join('app/views', controller_file_path, 'index.json.jb')
         template 'show.json.jb', File.join('app/views', controller_file_path, 'show.json.jb')
         
-        include_type = false #suppose the model will include :?
-        ARGV.each {|x| include_type ||= x.include?(':')}
-        return if include_type
+        return unless include_type?
         #add jb files for new actions
         attributes_names.each do |k|
           next if k == :id
+          k = k.split(':')[0]
           template 'temp.json.jb', File.join('app/views', controller_file_path, k+'.json.jb')
         end
         
@@ -34,11 +33,27 @@ module Rails
 
       private
       def attributes_names
-        [:id] + super
+        arr = [:id]
+        begin
+            arr += class_name.constantize.attribute_names.reject {|name| %w(id created_at updated_at ).include? name }
+        rescue
+            if include_type?
+                #skip first
+                arr += ARGV[1..-1].each {|x| x.split(':')[0]}
+            end
+        end
+        #p arr
+        arr
       end
 
       def attributes_names_with_timestamps
         attributes_names + %w(created_at updated_at)
+      end
+
+      def include_type?
+        include_type = false #suppose the model will include :?
+        ARGV.each {|x| include_type ||= x.include?(':')}
+        include_type
       end
     end
   end
